@@ -20,7 +20,7 @@ $base-line-height: 1.5 !default;
 /// @group abstracts
 /// @access public
 /// @type Number
-$base-font-family: 'Roboto', sans-serif;
+$base-font-family: 'Tienne', serif;
 
 /// Base font weight
 /// @group abstracts
@@ -32,7 +32,31 @@ $base-font-weight: 400;
 /// @group abstracts
 /// @access public
 /// @type Number
-$headings-font-family: 'Open Sans', sans-serif;
+$headings-font-family: 'Lato', sans-serif;
+
+/// Color red
+/// @group abstracts
+/// @access public
+/// @type Number
+$color-red: #5d3d3b;
+
+/// Color blue
+/// @group abstracts
+/// @access public
+/// @type Number
+$color-blue: #394e64;
+
+/// Color light
+/// @group abstracts
+/// @access public
+/// @type Number
+$color-light: #dcc8b8;
+
+/// Color grey
+/// @group abstracts
+/// @access public
+/// @type Number
+$color-grey: #7c7765;
 
 /// Headings font weight
 /// @group abstracts

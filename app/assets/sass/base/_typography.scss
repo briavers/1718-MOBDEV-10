@@ -17,10 +17,12 @@ h6 {
 
 h1 {
   @include type-setting(6);
+  color: $color-red;
 }
 
 h2 {
   @include type-setting(5);
+  color: $color-blue;
 }
 
 h3 {
