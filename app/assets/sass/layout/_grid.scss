@@ -1,44 +1,17 @@
-/// Grid container
+/// Make a grid container
 /// @group layout
 /// @access public
-/// @type Number
+/// @type Mixin
 @include make-fb-grid-container();
 
-/// Grid row
+/// Make a grid row
 /// @group layout
 /// @access public
-/// @type Number
+/// @type Mixin
 @include make-fb-grid-row();
 
-/// Grid column
+/// Make grid columns
 /// @group layout
 /// @access public
-/// @type Number
-@include makeGrid($grid-columns-amount);
-
-/// Grid column: size 12
-/// @group layout
-/// @access public
-/// @type Number
-.col-12 {
-  padding: 0 $grid-gutter-width;
-  width: 100%;
-}
-
-/// Grid column: size 6
-/// @group layout
-/// @access public
-/// @type Number
-.col-6 {
-  padding: 0 $grid-gutter-width;
-  width: 50%;
-}
-
-/// Grid column: size 3
-/// @group layout
-/// @access public
-/// @type Number
-.col-3 {
-  padding: 0 $grid-gutter-width;
-  width: 25%;
-}
+/// @type Mixin
+@include make-fb-grid-columns();

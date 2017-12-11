@@ -2,16 +2,10 @@
   @return #{map-get($modular-scales, $level)}rem;
 }
 
-@function vr-line-height($level) {
-  @return #{ceil(map-get($modular-scales, $level))}rem;
+@function line-height($level) {
+  @return #{ceil(map-get($line-heights, $level))}rem;
 }
 
-@function get-grid-selector($key){
+@function grid-selector($key) {
   @return #{map-get($grid-prefix-names, $key)};
 }
-
-/* @function makeGrid($grid-columns-amount){
-  @for $i from 1 through $grid-columns-amount {
-     @return ".column-#{$i} {width: 100% / $grid-columns-amount *#{$i};}";
-}
-} */
