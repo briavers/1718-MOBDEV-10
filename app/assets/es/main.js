@@ -2,27 +2,11 @@
 'use strict';
 
 import { Person, Student } from './models';
-import { GridOverlayElement } from './grid';
+// import { Alert } from './custom.js';
 
 class App {
   constructor () {
     console.log('Constructor of the class');
-
-    document.registerElement('grid-overlay', GridOverlayElement);
-
-    this._gridOverlayElement = document.createElement('grid-overlay');
-    document.body.appendChild(this._gridOverlayElement);
-    this.resizeWindow();
-
-    window.addEventListener('resize', () => this.resizeWindow());
-  }
-
-  resizeWindow () {
-    this._gridOverlayElement.updateRendering(window.innerWidth, Math.max(
-      window.innerHeight,
-      document.body.offsetHeight,
-      document.documentElement.clientHeight
-    ), 24);
   }
 
   init () {
@@ -39,4 +23,31 @@ class App {
 window.addEventListener('load', (ev) => {
   const app = new App();
   app.init();
+});
+
+let menubutton = document.getElementById('menubutton');
+let menuShow = false;
+menubutton.addEventListener('click', function myMasterMenuShow () {
+  function myFunction () {
+    if (menuShow) {
+      menuShow = false;
+    } else {
+      menuShow = true;
+    }
+    menuShowing();
+  }
+
+  myFunction();
+
+  function menuShowing () {
+    if (menuShow) {
+      console.log('showing menu');
+      document.getElementById('menu').style.display = 'block';
+      document.getElementById('page').style.display = 'none';
+    } else {
+      console.log('showing NOO menu');
+      document.getElementById('menu').style.display = 'none';
+      document.getElementById('page').style.display = 'block';
+    }
+  }
 });
