@@ -72,6 +72,11 @@
     @include fb-grid-column(12, $columns-amount);
   }
 
+  %grid-column h5 {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
   $list:'';
 
   @for $i from 1 through $columns-amount {

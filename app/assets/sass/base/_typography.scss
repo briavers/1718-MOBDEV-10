@@ -14,7 +14,8 @@ h6 {
 
   @include type-setting(1);
 
-  margin: #{$base-line-height}rem 0;
+  margin: 0 0 1rem;
+  font-weight: normal;
 }
 
 h1 {
@@ -35,6 +36,9 @@ h4 {
 
 h5 {
   @include type-setting(2);
+
+  font-size: 1rem;
+  margin: 0 0 1rem;
 }
 
 a {
@@ -74,16 +78,34 @@ a {
   margin-bottom: -5%;
 }
 
+.articleName {
+  line-height: normal;
+}
+
 .date {
-  color: $color-gray;
-  margin-top: 0;
+  color: $color-dark-gray;
+  margin-top: 15px;
   padding-top: 0;
+  display: block;
+  margin-left: 5%;
 }
 
 .tag {
   background-color: $color-green;
-  width: 60%;
-  padding: 5px 25px;
+  padding: 5px 10%;
   margin: 15px 5px;
   border-radius: 5px;
+  display: block;
+  width: fit-content;
+}
+
+.tag.Ionic,
+.tag.JavaScript,
+.tag.CSS {
+  background-color: $color-light-blue;
+  color: $color-dark-blue;
+}
+
+.tag.Undifined {
+  display: none;
 }

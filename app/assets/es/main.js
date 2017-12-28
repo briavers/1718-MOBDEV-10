@@ -44,10 +44,12 @@ menubutton.addEventListener('click', function myMasterMenuShow () {
       console.log('showing menu');
       document.getElementById('menu').style.display = 'block';
       document.getElementById('page').style.display = 'none';
+      document.getElementById('menubutton').classList.add('change');
     } else {
       console.log('showing NOO menu');
       document.getElementById('menu').style.display = 'none';
       document.getElementById('page').style.display = 'block';
+      document.getElementById('menubutton').classList.remove('change');
     }
   }
 });

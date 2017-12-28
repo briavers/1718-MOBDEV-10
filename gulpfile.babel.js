@@ -377,7 +377,8 @@ gulp.task('default', ['clean'], cb =>
     ['scripts:lint', 'styles:lint'],
     'sass:docs',
     'handlebars:compile',
-    ['html', 'styles', 'scripts', 'images', 'fonts', 'copy'],
+    'html',
+    ['styles', 'scripts', 'images', 'fonts', 'copy'],
     cb
   )
 );
