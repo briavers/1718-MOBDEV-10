@@ -169,48 +169,18 @@
 
 
 <div id="page">
-  <div class="fb-grid__row">
-    <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
-    <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10">
-      <div class="picText">
-        <img src="https://image.ibb.co/iQ26XG/campus.jpg" alt="picture of the campus">
-        <h5>GDM</h5>
-        <p>Apps ontwikkelen, websites ontwerpen, advertenties vormgeven, foto's maken en bewerken, de commerciële en financiële
-          kant van een grafisch bedrijf doorgronden of zelf een zaak opstarten? Waar je ook van droomt binnen de grafische
-          en digitale media, deze opleiding is dé springplank voor je carrière!</p>
-      </div>
-    </div>
-    <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
-  </div>
-
-  <div class="fb-grid__row">
-    <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
-    <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
-      <h6>Artworks</h6>
-    </div>
-    <div class="fb-grid__col-xs-5 fb-grid__col-sm-5 fb-grid__col-md-5 fb-grid__col-lg-5 fb-grid__col-xl-5 fb-grid__col-5"> </div>
-    <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
-      <br>
-      <a href="#"> See all ></a>
-    </div>
-  </div>
-
-
-  <div class="fb-grid__row scrolling scroll" id="artworks">
+  <div id="artwork">
 
   </div>
-  <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1 scroll"></div>
+
 
   <div class="fb-grid__row">
     <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
     <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
-      <h6>Recent Blog Posts</h6>
+      <h6>more like this</h6>
     </div>
     <div class="fb-grid__col-xs-2 fb-grid__col-sm-2 fb-grid__col-md-2 fb-grid__col-lg-2 fb-grid__col-xl-2 fb-grid__col-2"> </div>
-    <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
-      <br>
-      <a href="#"> See all ></a>
-    </div>
+    <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3"> </div>
   </div>
 
   <div id="blog">
@@ -254,9 +224,17 @@
     <!-- endbuild -->
 
 
+
 <script>
   console.log('json is called in');
 
+  function getUrlVars() {
+      var vars = {};
+      var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+      });
+      return vars;
+    }
 
   function getJsonByCallbacks(url, succesHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
@@ -279,47 +257,70 @@
 
   getJsonByCallbacks('https://api.myjson.com/bins/ypixb',
     function (data) {
-      console.log(data);
-      let usersData = data.users;
-      console.log(usersData);
-      let projectsData = data.projects;
-      console.log(projectsData);
       let blogData = data.articles;
+      let projectsData = data.projects;
+     
       console.log(blogData);
-      let projectsElement = document.querySelector('#artworks');
-
-      //lege string aan maken
-      var tempStr = '';
-      //The forEach() method executes a provided function once for each array element.
-      for (i = 0; i < 5; ++i) {
-        //projectsData.forEach(function(uitvoer) {
-        //de tempstr aanvullen met de ingeladen informatie
-        tempStr +=
-         `<div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1 scroll"></div>
-          <div class="fb-grid__col-xs-8 fb-grid__col-sm-8 fb-grid__col-md-8 fb-grid__col-lg-8 fb-grid__col-xl-8 fb-grid__col-8 scroll">
-            <a href="./detail.html?project=${projectsData[i].projectId}">
-              <div class="picText">
-                <img src="${projectsData[i].pictures}" alt="picture of the campus" class="height">
-                <div class= "textHeight">
-                    <h5>${projectsData[i].projectName}</h5>
-                    <p>${projectsData[i].artist}</br>
-                    ${projectsData[i].degree}</p>
-                </div>
-              </div>
-            </a>
-          </div>`;
-      };
-
-      //de html in het element veranderen naar de inhoud van tempstr
-      projectsElement.innerHTML = tempStr;
+      let projectID = (getUrlVars()["project"]-1);
+      console.log(projectID);
+      let tempStr = '';
+      let projectInfo = projectsData[projectID];
+      let projectElement = document.querySelector('#artwork');
+      console.log(projectInfo);
+      let tag = projectInfo.tags[0];
+      tempStr += 
+      `
+      <div class="fb-grid__row">
+        <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+        <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10">
+          <div class="picText">
+            <img src="${projectInfo.pictures[0]}" alt="picture of the campus">
+            <h4>  ${projectInfo.projectName}</h4>
+            <h5 class="date">${projectInfo.artist}</h5>
+            <p>${projectInfo.bodyText}</p>
+          </div>
+        </div>
+        <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+      </div>`;
+    projectElement.innerHTML = tempStr;
 
 
       let blogElement = document.querySelector('#blog');
       //lege string aan maken
       var tempStr2 = '';
-      console.log(blogData.image);
+     
+     
+     
+      let moreLikeThis = []
+      console.log(projectsData)
+
+        projectsData.forEach(function (projectsData) {
+          if (projectsData.tags[0] === tag && projectsData.projectName !== projectInfo.projectName) {
+            moreLikeThis.push(projectsData);
+          } else {
+            console.log('nothing found');
+          }
+        });
+
+      console.log(moreLikeThis);
+      moreLikeThis.forEach(function (moreLikeThis) {
+        tempStr2 +=
+          `<a href="./detail.html?project=${moreLikeThis.projectId}"> <div class="fb-grid__row margin-top blogSum">
+              <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
+                <img src="${moreLikeThis.pictures[0]}" alt="logo Portfolio rex" class="radius5"> </div>
+                <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+                <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
+                <h5 class="articleName">${moreLikeThis.projectName}</h5>
+                <span class="date"> ${moreLikeThis.artist}<br> </span>
+                <span class="tag tagArticle"> ${moreLikeThis.tags[0]}</span>
+              </div>
+            </div> </a>`;
+      });
+
+      //de html in het element veranderen naar de inhoud van tempstr
+      blogElement.innerHTML = tempStr2;
       //The forEach() method executes a provided function once for each array element.
-      for (i = 0; i < 3; ++i) {
+  /*    for (i = 0; i < 3; ++i) {
         //projectsData.forEach(function(uitvoer) {
         //de tempstr aanvullen met de ingeladen informatie
         tempStr2 +=
@@ -337,7 +338,7 @@
 
       //de html in het element veranderen naar de inhoud van tempstr
       blogElement.innerHTML = tempStr2;
-
+*/
     },
     function (status) {
       console.log(status);
