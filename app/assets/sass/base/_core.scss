@@ -10,6 +10,11 @@ body {
   margin-bottom: 25px;
 }
 
+#image404 {
+  width: 110%;
+  margin-left: -5%;
+}
+
 .logo a img {
   height: 35px;
   padding-top: 17px;
@@ -116,6 +121,10 @@ body {
   white-space: nowrap;
 }
 
+.schrink {
+  width: 100%;
+}
+
 .scroll {
   display: inline-block;
   text-align: center;
@@ -148,4 +157,35 @@ body {
 .textHeight {
   height: 150px;
   overflow: hidden;
+}
+
+.input {
+  width: 270px;
+  height: 25px;
+  border: none;
+}
+
+.inputMessage {
+  width: 270px;
+  height: 150px;
+  border: none;
+}
+
+.submit {
+  background-color: #97cfde;
+  color: white;
+  border: none;
+  height: 30px;
+}
+
+textarea,
+.input {
+  font-family: Tienne, serif;
+  font-size: 12px;
+  line-height: 17px;
+  background-color: white;
+}
+
+.paddingTop {
+  padding-top: 20px;
 }

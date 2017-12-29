@@ -1,14 +1,13 @@
-
-<!doctype html>
+ <!doctype html>
 <html lang="nl-be" dir="ltr" prefix="og: http://ogp.me/ns#">
   <head>
 	  <meta charset="UTF-8"> 
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <title>Styleguide | New Media Development | Artevelde University College Ghent
+    <title>Home | New Media Development | Artevelde University College Ghent
     </title>
-    <meta name="description" content="Styleguide for the course Mobile Development I">
+    <meta name="description" content="We educate future talents in Design for Print and Non-Print, Web- and App Development, Audio and Video Production, 2D- 3D Animations, Printing and Packaging and the whole Management of those Workflows.">
     <meta name="description" content="HTML5, CSS3, JavaScript, Sass, Handlebars, Gulp, Babel">
     <meta name="author" content="Artevelde University College Ghent - Bachelor in the Graphical and Digital Media | New Media Development">
     <meta name="copyright" content="Copyright 2010-17 Artevelde University College Ghent. All Rights Reserved.">
@@ -35,7 +34,9 @@
     <meta name="application-name" content="GDM">
     <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" media="all" href="../assets/css/main.css">
+    <link rel="stylesheet" media="all" href="./assets/css/main.css">
+
+
 
 
   </head>
@@ -164,15 +165,47 @@
         </div>
       </div>
 
-    <div class="fb-grid__container">
-      <div class="fb-grid__row">
-        <div class="fb-grid__col-12">
-          <div class="article">
-            <h1>This is the styleguide.</h1>
-          </div>
-        </div>
+
+
+<div id="page">
+
+  <div class="fb-grid__row">
+    <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+    <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10">
+      <div class="picText">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2506.143759091219!2d3.6665024156717916!3d51.087354379568275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c370362705fc21%3A0x47f9e1d923e07a64!2sCampus+Mariakerke+Arteveldehogeschool!5e0!3m2!1snl!2sbe!4v1514393476578"
+          width="300" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+        <h5>Grafische en Digitale Media</h5>
+        <p>Industrieweg 232
+          <br> 9030 Gent
+          <br>09 234 86 00</p>
+
       </div>
     </div>
+    <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+  </div>
+  <div id="form">
+    <div class="fb-grid__row">
+      <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+      <div class="fb-grid__col-xs-8 fb-grid__col-sm-8 fb-grid__col-md-8 fb-grid__col-lg-8 fb-grid__col-xl-8 fb-grid__col-8">
+
+        <h6>Contact</h6>
+
+        <form method="post">
+          <div id="alert"></div>
+          <input type="text" name="Name" id="Name" placeholder="Name" class="input radius5 margin-top">
+          <input type="email" name="Email" id="Email" placeholder="Email" class="input radius5 margin-top">
+          <textarea name="Message" id="Message" placeholder="Message" class="inputMessage radius5 margin-top"></textarea>
+          <input class="tag tagArticle submit" type="submit" value="Submit" id="submit">
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
       <div class="fb-grid__row footer margin-top">
         <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
         <div class="fb-grid__col-xs-2 fb-grid__col-sm-2 fb-grid__col-md-2 fb-grid__col-lg-2 fb-grid__col-xl-2 fb-grid__col-2">
@@ -204,11 +237,79 @@
       </div>
 </div>
     <!-- build:js assets/js/main.min.js -->
-    <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/fun.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/fun.js"></script>
     <!-- endbuild -->
 
 
+<script>
+
+  const nameElement = document.getElementById('Name');
+  const emailElement = document.getElementById('Email');
+  const messageElement = document.getElementById('Message');
+  const formElement = document.getElementById('form');
+  const alertElement = document.getElementById('alert');
+  let formSubmitted = formElement.innerHTML;
+  let tempstrAlert;
+  console.log(nameElement);
+  console.log(emailElement);
+  console.log(messageElement);
+  console.log(formElement);
+  console.log(formSubmitted);
+
+  const btnSubmit = document.getElementById('submit');
+  btnSubmit.onclick = function (event) {
+    event.preventDefault();
+    tempstrAlert = "";
+
+    //console.log(nameElement);
+    name = nameElement.value;
+    console.log(name);
+
+
+
+    if (name == "") {
+      tempstrAlert += "<p>Fill in your name.</p><br>";
+    }
+
+
+    //console.log(emailElement);
+    email = emailElement.value;
+    console.log(email);
+    if (email == "") {
+      tempstrAlert += "<p>Fill in your email.</p><br>";
+    }
+
+    //console.log(messageElement);
+    message = messageElement.value;
+    console.log(message);
+    if (message == "") {
+      tempstrAlert += "<p>Fill in your message.</p>";
+    }
+
+    alertElement.innerHTML = tempstrAlert;
+    if (name && email && message) {
+
+      formElement.innerHTML = "";
+
+      console.log(formElement.innerHTML);
+
+      let tempstr = `<div class="fb-grid__row">
+    <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+    <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10 picText">
+        <h6>Message sent</h6>
+        <p>Below you can see your sent data.</p><br>
+        <p>Your name: ${name}<br><br> Your email: ${email} <br><br> Your message: ${message}</p>
+    </div>
+    </div>`
+      formElement.innerHTML += tempstr;
+      console.log(formElement.innerHTML);
+    }
+  };
+
+</script>
+
+ 
 
   </body>
 </html>
