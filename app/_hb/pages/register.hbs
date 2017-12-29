@@ -1,0 +1,271 @@
+{{!-- pages/index.hbs --}} {{#> layouts/base title="Home | New Media Development | Artevelde University College Ghent" pathToRoot="./"
+}} {{#*inline "content-block"}}
+  <div id="page">
+    <!--titles-->
+    <div class="fb-grid__row">
+      <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+      <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10">
+        <h5>Login</h5>
+      </div>
+      <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+    </div>
+  
+    <!--login-->
+    <div id="form">
+      <div class="fb-grid__row">
+        <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+        <div class="fb-grid__col-xs-8 fb-grid__col-sm-8 fb-grid__col-md-8 fb-grid__col-lg-8 fb-grid__col-xl-8 fb-grid__col-8">
+          <form method="post">
+            <div id="alert"></div>
+  
+            <input type="email" name="Email" id="emailLogin" placeholder="Email" class="input radius5 margin-top">
+            <input type="password" name="password" id="passwordLogin" placeholder="Password" class="input radius5 margin-top">
+  
+            <input class="tag tagArticle submit" type="submit" value="Login" id="login">
+          </form>
+        </div>
+      </div>
+  
+    </div>
+  
+  
+    <!--titles-->
+    <div class="fb-grid__row">
+      <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+      <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10">
+        <h5>Register</h5>
+        <h6>Who are you?</h6>
+  
+  
+      </div>
+      <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+    </div>
+    <!--images student teacher visitor-->
+    <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3"></div>
+    <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3"></div>
+    <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3"></div>
+  
+    <!--form-->
+    <div id="form">
+      <div class="fb-grid__row">
+        <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+        <div class="fb-grid__col-xs-8 fb-grid__col-sm-8 fb-grid__col-md-8 fb-grid__col-lg-8 fb-grid__col-xl-8 fb-grid__col-8">
+          <form method="post">
+            <div id="alert"></div>
+            <input type="text" name="Name" id="Name" placeholder="Name" class="input radius5 margin-top">
+            <input type="email" name="Email" id="Email" placeholder="Email" class="input radius5 margin-top">
+            <input type="password" name="password" id="password" placeholder="Password" class="input radius5 margin-top">
+            <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="Confirm password" class="input radius5 margin-top">
+            <input class="tag tagArticle submit" type="submit" value="Register" id="submit">
+          </form>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+  </div>
+
+
+  {{/inline}} {{#*inline "scripts-block"}} 
+  <script>
+    
+      const nameElement = document.getElementById('Name');
+      const emailElement = document.getElementById('Email');
+      const passwordElement = document.getElementById('password');
+      const passwordConfirmElement = document.getElementById('passwordConfirm');
+      const alertElement = document.getElementById('alert');
+      const formElement = document.getElementById('form');
+
+
+      //login 
+      const emailLoginElement = document.getElementById('emailLogin');
+      const passwordLoginElement = document.getElementById('passwordlogin');
+
+      console.log(nameElement);
+      console.log(emailElement);
+      console.log(passwordElement);
+      console.log(passwordConfirmElement);
+      console.log(alertElement);
+
+      const btnLogin = document.getElementById('login');
+      btnLogin.onclick = function (event) {
+        event.preventDefault();
+        tempstrAlert = "";
+
+
+        // Retrieve the object from storage
+        var retrievedObject = localStorage.getItem('Users');
+
+        console.log('retrievedObject: ', JSON.parse(retrievedObject));
+
+        console.log('searching for the object now')
+
+
+        console.log(retrievedObject)
+
+
+
+
+
+
+        //console.log(emailElement);
+        email = emailElement.value;
+        console.log(email);
+        if (email == "") {
+          tempstrAlert += "<p>Fill in your email.</p><br>";
+        }
+
+        //console.log(passwordElement);
+        password = passwordElement.value;
+        console.log(password);
+        if (password == "") {
+          tempstrAlert += "<p>Fill in your chosen password.</p>";
+        }
+
+        alertElement.innerHTML = tempstrAlert;
+        if (email && password) {
+
+          window.location.href = './index.html';
+
+
+        }
+        else {
+
+          formElement.innerHTML = "";
+          let tempstr = `<div class="fb-grid__row">
+      <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+      <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10 picText">
+          <h6>Login failed</h6>
+          <p>Please try again.</p>
+          
+      </div>
+      </div>
+      <!--login-->
+<div id="form">
+    <div class="fb-grid__row">
+      <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+      <div class="fb-grid__col-xs-8 fb-grid__col-sm-8 fb-grid__col-md-8 fb-grid__col-lg-8 fb-grid__col-xl-8 fb-grid__col-8">   
+        <form  method="post">
+            <div id="alert"></div>
+       
+          <input type="email" name="Email" id="emailLogin" placeholder="Email" class="input radius5 margin-top">
+          <input type="password" name="password" id="passwordLogin" placeholder="Password" class="input radius5 margin-top">
+          
+          <input class="tag tagArticle submit" type="submit" value="Login" id="login">
+        </form>
+      </div>
+      </div>
+    
+    </div>`
+          formElement.innerHTML += tempstr;
+        }
+      };
+
+
+
+      const btnSubmit = document.getElementById('submit');
+      btnSubmit.onclick = function (event) {
+        event.preventDefault();
+        tempstrAlert = "";
+
+        //console.log(nameElement);
+        name = nameElement.value;
+        console.log(name);
+
+
+
+        if (name == "") {
+          tempstrAlert += "<p>Fill in your name.</p><br>";
+        }
+
+
+        //console.log(emailElement);
+        email = emailElement.value;
+        console.log(email);
+        if (email == "") {
+          tempstrAlert += "<p>Fill in your email.</p><br>";
+        }
+
+        //console.log(passwordElement);
+        password = passwordElement.value;
+        console.log(password);
+        if (password == "") {
+          tempstrAlert += "<p>Fill in your chosen password.</p>";
+        }
+        //console.log(passwordConfirmElement);
+        passwordConfirm = passwordConfirmElement.value;
+        console.log(passwordConfirm);
+        if (password == "") {
+          tempstrAlert += "<p>Confirm in your chosen password.</p>";
+        }
+
+        if (password !== passwordConfirm) {
+          tempstrAlert += "<p>The passwords are not the same.</p>";
+        }
+
+
+
+        alertElement.innerHTML = tempstrAlert;
+        if (name && email && password && passwordConfirm && password == passwordConfirm) {
+
+          formElement.innerHTML = "";
+
+          console.log(formElement.innerHTML);
+
+
+          
+          let retrievedObject = localStorage.getItem('Users');
+          console.log('retrievedObject: ', JSON.parse(retrievedObject));
+          console.log('searching for the object now')
+          console.log(retrievedObject)
+
+          if (retrievedObject === null){
+            
+            localStorageUsers =
+              {
+              "users": [
+                {
+                  "naam": name,
+                  "email": email,
+                  "password": passwordConfirm,
+                  "function": 'testing',
+                }
+              ]}; 
+            
+            localStorage.setItem('Users', JSON.stringify(localStorageUsers));
+          } else {
+            localStorageUsers =
+              {
+                "users": [
+                  {
+                    "naam": name,
+                    "email": email,
+                    "password": passwordConfirm,
+                    "function": 'testing',
+                  }
+              ]};
+            
+            localStorage.setItem('Users', JSON.stringify(localStorageUsers));
+          }
+          retrievedObject = localStorage.getItem('Users');
+           console.log('retrievedObject after setting item: ', JSON.parse(retrievedObject));
+
+          let tempstr = `<div class="fb-grid__row">
+    <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+    <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10 picText">
+        <h6>Registered</h6>
+        <p>Below you can see your data.</p><br>
+        <p>Your name: ${name}<br><br> Your email: ${email}</p>
+    </div>
+    </div>`
+
+
+      
+          formElement.innerHTML += tempstr;
+          console.log(formElement.innerHTML);
+          
+        }
+      };
+  </script>
+  {{/inline}} {{/layouts/base}}
