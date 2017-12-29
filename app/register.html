@@ -418,39 +418,67 @@
           
           let retrievedObject = localStorage.getItem('Users');
           console.log('retrievedObject: ', JSON.parse(retrievedObject));
-          console.log('searching for the object now')
-          console.log(retrievedObject)
+          let arrayOfUsers = [];
+          arrayOfUsers = JSON.parse(retrievedObject);
+          console.log('searching for the object now');
+          console.log(arrayOfUsers);
 
           if (retrievedObject === null){
             
             localStorageUsers =
-              {
-              "users": [
+              
+              [
                 {
-                  "naam": name,
-                  "email": email,
-                  "password": passwordConfirm,
-                  "function": 'testing',
+                  'naam': 'test',
+                  'email': 'email',
+                  'password': 'passwordConfirm',
+                  'function': 'testing'
+                },
+                {
+                  'naam': name,
+                  'email': email,
+                  'password': passwordConfirm,
+                  'function': 'testing'
                 }
-              ]}; 
+              ];
+              
             
             localStorage.setItem('Users', JSON.stringify(localStorageUsers));
           } else {
-            localStorageUsers =
-              {
-                "users": [
+
+
+
+
+
+
+
+            let hopeObject = retrievedObject;
+            console.log(typeof arrayOfUsers);
+            console.log(typeof JSON.parse(retrievedObject));
+            console.log("this is changingStorage b4 it is edited: " + retrievedObject);
+            let addStorage =
                   {
-                    "naam": name,
-                    "email": email,
-                    "password": passwordConfirm,
-                    "function": 'testing',
-                  }
-              ]};
-            
-            localStorage.setItem('Users', JSON.stringify(localStorageUsers));
+                    'naam': name,
+                    'email': email,
+                    'password': passwordConfirm,
+                    'function': 'testing'
+                  };
+
+            console.log("type of addstorage: ", typeof addStorage);
+
+            arrayOfUsers.push(addStorage);
+            console.log(arrayOfUsers);
+            localStorage.setItem('Users', JSON.stringify(arrayOfUsers));
           }
           retrievedObject = localStorage.getItem('Users');
-           console.log('retrievedObject after setting item: ', JSON.parse(retrievedObject));
+
+
+
+
+
+
+
+
 
           let tempstr = `<div class="fb-grid__row">
     <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
@@ -459,7 +487,7 @@
         <p>Below you can see your data.</p><br>
         <p>Your name: ${name}<br><br> Your email: ${email}</p>
     </div>
-    </div>`
+    </div>`;
 
 
       
