@@ -4,13 +4,13 @@
 
 }} {{#*inline "content-block"}}
 
-<div id="page">
+<div id="page parent">
   <div id="artwork">
 
   </div>
 
 
-  <div class="fb-grid__row">
+  <div class="fb-grid__row" id="child">
     <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
     <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
       <h6>more like this</h6>
@@ -56,7 +56,7 @@
     xhr.send(null);
   }
 
-  getJsonByCallbacks('https://api.myjson.com/bins/ypixb',
+  getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
     function (data) {
       let blogData = data.articles;
       let projectsData = data.projects;
@@ -96,17 +96,38 @@
       console.log(projectsData)
 
         projectsData.forEach(function (projectsData) {
-          if (projectsData.tags[0] === tag && projectsData.projectName !== projectInfo.projectName) {
+          if (projectsData.tags[0] === tag && projectsData.projectName !== projectInfo.projectName || projectsData.tags[0] === projectInfo.tags[1] && projectsData.projectName !== projectInfo.projectName || projectsData.tags[1] === projectInfo.tags[0] && projectsData.projectName !== projectInfo.projectName) {
             moreLikeThis.push(projectsData);
           } else {
             console.log('nothing found');
           }
         });
 
+        if (moreLikeThis.length === 0 ){
+          let parent = document.getElementById('parent');
+          let child = document.getElementById('child');
+          parent.removeChild(child);
+        } else {
+          console.log("there are childeren")
+        }
+      console.log(moreLikeThis);
+      
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          let j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+      
+      shuffleArray(moreLikeThis);
+      
+      let amounthToSplice = (moreLikeThis.length - 5)
+
+      moreLikeThis.splice(4, amounthToSplice);
       console.log(moreLikeThis);
       moreLikeThis.forEach(function (moreLikeThis) {
         tempStr2 +=
-          `<a href="./detail.html?project=${moreLikeThis.projectId}"> <div class="fb-grid__row margin-top blogSum">
+          `<a href="./detailArtwork.html?project=${moreLikeThis.projectId}"> <div class="fb-grid__row margin-top blogSum">
               <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
                 <img src="${moreLikeThis.pictures[0]}" alt="logo Portfolio rex" class="radius5"> </div>
                 <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>

@@ -78,7 +78,7 @@
     xhr.send(null);
   }
 
-  getJsonByCallbacks('https://api.myjson.com/bins/ypixb',
+  getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
     function (data) {
       console.log(data);
       let usersData = data.users;
@@ -98,13 +98,14 @@
         tempStr +=
          `<div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1 scroll"></div>
           <div class="fb-grid__col-xs-8 fb-grid__col-sm-8 fb-grid__col-md-8 fb-grid__col-lg-8 fb-grid__col-xl-8 fb-grid__col-8 scroll">
-            <a href="./detail.html?project=${projectsData[i].projectId}">
+            <a href="./detailArtwork.html?project=${projectsData[i].projectId}">
               <div class="picText">
                 <img src="${projectsData[i].pictures}" alt="picture of the campus" class="height">
                 <div class= "textHeight">
                     <h5>${projectsData[i].projectName}</h5>
                     <p>${projectsData[i].artist}</br>
                     ${projectsData[i].degree}</p>
+                    <span class="tag tagArticle">${projectsData[i].tags[0]}</span>
                 </div>
               </div>
             </a>
@@ -124,7 +125,7 @@
         //projectsData.forEach(function(uitvoer) {
         //de tempstr aanvullen met de ingeladen informatie
         tempStr2 +=
-           `<div class="fb-grid__row margin-top blogSum">
+           `<a href="./detailBlog.html?project=${blogData[i].articleId}"> <div class="fb-grid__row margin-top blogSum">
               <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
                 <img src="${blogData[i].image}" alt="logo Portfolio rex" class="radius5"> </div>
                 <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
@@ -133,9 +134,9 @@
                 <span class="date"> ${blogData[i].date}<br> </span>
                 <span class="tag tagArticle">Article</span>
               </div>
-            </div>`;
+            </div></a>`;
       };
-
+      
       //de html in het element veranderen naar de inhoud van tempstr
       blogElement.innerHTML = tempStr2;
 
