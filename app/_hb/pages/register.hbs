@@ -105,7 +105,15 @@
         console.log(retrievedObject)
 
 
+        retrievedObject.forEach(function(retrievedObject){
+          email = emailElement.value;
+         console.log(email);
+         console.log(retrievedObject.email);
 
+          if (email === retrievedObject.email) {
+            console.log('mail succes');
+          } 
+        });
 
 
 
