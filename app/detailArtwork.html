@@ -11,7 +11,14 @@
     <meta name="description" content="We educate future talents in Design for Print and Non-Print, Web- and App Development, Audio and Video Production, 2D- 3D Animations, Printing and Packaging and the whole Management of those Workflows.">
     <meta name="description" content="HTML5, CSS3, JavaScript, Sass, Handlebars, Gulp, Babel">
     <meta name="author" content="Artevelde University College Ghent - Bachelor in the Graphical and Digital Media | New Media Development">
-    <meta name="copyright" content="Copyright 2010-17 Artevelde University College Ghent. All Rights Reserved.">
+    <meta name="copyright" content="Copyright 2010-17 Artevelde University College Ghent. All Rights Reserved.">    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.11';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
     <meta property="og:type" content="website">
     <meta property="og:title" content=">Mobile Development I | New Media Development | Artevelde University College Ghent">
     <meta property="og:description" content="We educate future talents in Design for Print and Non-Print, Web- and App Development, Audio and Video Production, 2D- 3D Animations, Printing and Packaging and the whole Management of those Workflows.">
@@ -257,7 +264,7 @@
     xhr.send(null);
   }
 
-  getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
+  getJsonByCallbacks('https://api.myjson.com/bins/1cqddv',
     function (data) {
       let blogData = data.articles;
       let projectsData = data.projects;
@@ -270,6 +277,7 @@
       let projectElement = document.querySelector('#artwork');
       console.log(projectInfo);
       let tag = projectInfo.tags[0];
+      let curentPage = window.location.href;
       tempStr += 
       `
       <div class="fb-grid__row">
@@ -280,6 +288,8 @@
             <h4>  ${projectInfo.projectName}</h4>
             <h5 class="date"> <a href="./profileStudent.html?profile=${projectInfo.artist}"> ${projectInfo.artist} </a> </h5>
             <p>${projectInfo.bodyText}</p>
+            <span class="tag tagArticle"><div class="fb-share-button" data-href="${curentPage}" data-layout="box_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F${curentPage}%2F&amp;src=sdkpreparse">Delen</a></div></span>
+            
           </div>
         </div>
         <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>

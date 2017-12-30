@@ -111,3 +111,18 @@ a {
 .tag.Undifined {
   display: none;
 }
+
+.disabled {
+  background-color: $color-gray;
+  color: $color-dark-gray;
+}
+
+.active {
+  border-color: $color-green;
+  color: $color-dark-blue;
+}
+
+.following {
+  background-color: $color-green;
+  color: $color-dark-blue;
+}

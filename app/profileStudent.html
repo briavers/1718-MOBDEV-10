@@ -10,7 +10,14 @@
     <meta name="description" content="We educate future talents in Design for Print and Non-Print, Web- and App Development, Audio and Video Production, 2D- 3D Animations, Printing and Packaging and the whole Management of those Workflows.">
     <meta name="description" content="HTML5, CSS3, JavaScript, Sass, Handlebars, Gulp, Babel">
     <meta name="author" content="Artevelde University College Ghent - Bachelor in the Graphical and Digital Media | New Media Development">
-    <meta name="copyright" content="Copyright 2010-17 Artevelde University College Ghent. All Rights Reserved.">
+    <meta name="copyright" content="Copyright 2010-17 Artevelde University College Ghent. All Rights Reserved.">    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.11';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
     <meta property="og:type" content="website">
     <meta property="og:title" content=">Mobile Development I | New Media Development | Artevelde University College Ghent">
     <meta property="og:description" content="We educate future talents in Design for Print and Non-Print, Web- and App Development, Audio and Video Production, 2D- 3D Animations, Printing and Packaging and the whole Management of those Workflows.">
@@ -181,7 +188,7 @@
     
     <div class="fb-grid__col-xs-4 fb-grid__col-sm-4 fb-grid__col-md-4 fb-grid__col-lg-4 fb-grid__col-xl-4 fb-grid__col-4"> 
 
-      <span class="tag tagArticle" id="followBtn">Follow</span>
+      <span class="tag tagArticle disabled" id="followBtn">Follow</span>
     </div>
     <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"> </div>
   </div>
@@ -239,8 +246,9 @@
       return vars;
     }
 
-  let projectID = getUrlVars()["profile"] ;
-
+  let profileID = getUrlVars()["profile"] ;
+  let student = profileID.replace(/%20/g, " ");
+  console.log("Student ", student);
 
 
 
@@ -268,10 +276,9 @@
       let projectsData = data.projects;
       console.log("project data ", projectsData);
       
-      console.log("project id ", projectID);
+      console.log("project id ", profileID);
       
-      let student = projectID.replace(/%20/g, " ");
-      console.log("Student ", student);
+      
       
       let allWorksByStudent = [];
 
@@ -334,11 +341,45 @@
     
   );
 
-  followBtnElement = document.getElementById('followBtn')
-  
-  
 
 
+    
+    followBtnElement = document.getElementById('followBtn')
+  
+      let logedIn = sessionStorage.getItem('logged-In');
+
+      if(logedIn){
+        let retrievedObject = localStorage.getItem('localStorageObject');
+        
+        let hopeObject = JSON.parse(retrievedObject)
+        console.log('retrievedObject: ', JSON.parse(retrievedObject));
+        console.log('searching for the object now');
+       
+        let followingOldAray = hopeObject;
+        console.log("followingOldAray ", followingOldAray);
+
+        followBtnElement.classList.remove("disabled")
+        followBtnElement.classList.add("active")
+
+        let alreadyFollowing = followingOldAray.indexOf(student);
+        console.log(alreadyFollowing);
+
+        if(alreadyFollowing !== -1){
+           followBtnElement.classList.remove("active")
+          followBtnElement.classList.add("following")
+          followBtnElement.innerHTML = `Following`
+        } else {
+
+            let followedProjects = [];
+            followBtnElement.addEventListener("click", function () {
+            followingOldAray.push(student);
+            localStorage.setItem('localStorageObject', JSON.stringify(followingOldAray));
+            });
+        }
+
+    
+      }
+     
 
 
 

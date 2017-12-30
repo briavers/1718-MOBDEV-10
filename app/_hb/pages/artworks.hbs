@@ -58,16 +58,12 @@
     xhr.send(null);
   }
 
-  getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
+  getJsonByCallbacks('https://api.myjson.com/bins/1cqddv',
     function (data) {
      
       let projectsData = data.projects;
       console.log(projectsData);
 
-      let localStorageObject = { 'folowing': ["Mieke Roelandt", "BriaVers", "Elena Vanhauwaert", "Simon Van Damme"] };
-
-      // Put the object into storage
-      localStorage.setItem('localStorageObject', JSON.stringify(localStorageObject));
 
       // Retrieve the object from storage
       var retrievedObject = localStorage.getItem('localStorageObject');
@@ -77,9 +73,9 @@
       console.log('searching for the object now')
 
       let followedProjects = [];
-      let followedPeople = localStorageObject.folowing;
+      let followedPeople = JSON.parse(retrievedObject);
       console.log(followedPeople)
-      console.log(localStorageObject.folowing[2]);
+   
 
       for(i=0; i < followedPeople.length; ++i){
         console.info('inside the for loop')
@@ -94,7 +90,7 @@
       }
 
         let followedWorksElement = document.querySelector('#followedArtworks');
-
+        let curentPage = window.location.href 
         //lege string aan maken
         var tempStr = '';
         //The forEach() method executes a provided function once for each array element.

@@ -58,7 +58,7 @@
     xhr.send(null);
   }
 
-  getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
+  getJsonByCallbacks('https://api.myjson.com/bins/1cqddv',
     function (data) {
       let blogData = data.articles;
       let projectsData = data.projects;
@@ -71,6 +71,7 @@
       let projectElement = document.querySelector('#artwork');
       console.log(projectInfo);
       let tag = projectInfo.tags[0];
+      let curentPage = window.location.href;
       tempStr += 
       `
       <div class="fb-grid__row">
@@ -81,6 +82,8 @@
             <h4>  ${projectInfo.projectName}</h4>
             <h5 class="date"> <a href="./profileStudent.html?profile=${projectInfo.artist}"> ${projectInfo.artist} </a> </h5>
             <p>${projectInfo.bodyText}</p>
+            <span class="tag tagArticle"><div class="fb-share-button" data-href="${curentPage}" data-layout="box_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F${curentPage}%2F&amp;src=sdkpreparse">Delen</a></div></span>
+            
           </div>
         </div>
         <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
