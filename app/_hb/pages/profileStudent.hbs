@@ -12,10 +12,10 @@
     <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6" id="parent">
       <h6 id="child">more of this student</h6>
     </div>
-    
-    <div class="fb-grid__col-xs-4 fb-grid__col-sm-4 fb-grid__col-md-4 fb-grid__col-lg-4 fb-grid__col-xl-4 fb-grid__col-4"> 
 
-      <span class="tag tagArticle disabled" id="followBtn">Follow</span>
+    <div class="fb-grid__col-xs-4 fb-grid__col-sm-4 fb-grid__col-md-4 fb-grid__col-lg-4 fb-grid__col-xl-4 fb-grid__col-4">
+
+      <input class="tag tagArticle submit" type="submit" value="Follow" id="followBtn">
     </div>
     <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"> </div>
   </div>
@@ -29,16 +29,16 @@
 
 <script>
 
-  
-  function getUrlVars() {
-      var vars = {};
-      var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-        vars[key] = value;
-      });
-      return vars;
-    }
 
-  let profileID = getUrlVars()["profile"] ;
+  function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+      vars[key] = value;
+    });
+    return vars;
+  }
+
+  let profileID = getUrlVars()["profile"];
   let student = profileID.replace(/%20/g, " ");
   console.log("Student ", student);
 
@@ -67,11 +67,11 @@
     function (data) {
       let projectsData = data.projects;
       console.log("project data ", projectsData);
-      
+
       console.log("project id ", profileID);
-      
-      
-      
+
+
+
       let allWorksByStudent = [];
 
       projectsData.forEach(function (projectsData) {
@@ -102,9 +102,9 @@
       projectElement.innerHTML = tempStr;
 
       tempStr2 = '';
-      for (i = 1; i < allWorksByStudent.length; ++i){
-      tempStr2 +=
-        `<a href="./detailArtwork.html?project=${allWorksByStudent[i].projectId}"> <div class="fb-grid__row margin-top blogSum">
+      for (i = 1; i < allWorksByStudent.length; ++i) {
+        tempStr2 +=
+          `<a href="./detailArtwork.html?project=${allWorksByStudent[i].projectId}"> <div class="fb-grid__row margin-top blogSum">
               <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
                 <img src="${allWorksByStudent[i].pictures[0]}" alt="logo Portfolio rex" class="radius5"> </div>
                 <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
@@ -130,48 +130,50 @@
       console.log(status);
     }
 
-    
+
   );
 
 
 
-    
-    followBtnElement = document.getElementById('followBtn')
-  
-      let logedIn = sessionStorage.getItem('logged-In');
 
-      if(logedIn){
-        let retrievedObject = localStorage.getItem('localStorageObject');
-        
-        let hopeObject = JSON.parse(retrievedObject)
-        console.log('retrievedObject: ', JSON.parse(retrievedObject));
-        console.log('searching for the object now');
-       
-        let followingOldAray = hopeObject;
-        console.log("followingOldAray ", followingOldAray);
+  followBtnElement = document.getElementById('followBtn')
 
-        followBtnElement.classList.remove("disabled")
-        followBtnElement.classList.add("active")
+  let logedIn = sessionStorage.getItem('logged-In');
 
-        let alreadyFollowing = followingOldAray.indexOf(student);
-        console.log(alreadyFollowing);
+  if (logedIn) {
+    let retrievedObject = localStorage.getItem('localStorageObject');
 
-        if(alreadyFollowing !== -1){
-           followBtnElement.classList.remove("active")
-          followBtnElement.classList.add("following")
-          followBtnElement.innerHTML = `Following`
-        } else {
+    let hopeObject = JSON.parse(retrievedObject)
+    console.log('retrievedObject: ', JSON.parse(retrievedObject));
+    console.log('searching for the object now');
 
-            let followedProjects = [];
-            followBtnElement.addEventListener("click", function () {
-            followingOldAray.push(student);
-            localStorage.setItem('localStorageObject', JSON.stringify(followingOldAray));
-            });
-        }
+    let followingOldAray = hopeObject;
+    console.log("followingOldAray ", followingOldAray);
 
-    
-      }
-     
+    followBtnElement.classList.remove("disabled")
+    followBtnElement.classList.add("active")
+
+    let alreadyFollowing = followingOldAray.indexOf(student);
+    console.log(alreadyFollowing);
+
+    if (alreadyFollowing !== -1) {
+      followBtnElement.classList.remove("active");
+      followBtnElement.classList.add("following");
+      followBtnElement.value = `Following`;
+    } else {
+
+      let followedProjects = [];
+      followBtnElement.addEventListener("click", function () {
+        console.log('clicked');
+
+        followingOldAray.push(student);
+        localStorage.setItem('localStorageObject', JSON.stringify(followingOldAray));
+      });
+    }
+
+
+  }
+
 
 
 

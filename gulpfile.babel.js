@@ -219,6 +219,271 @@ gulp.task('scripts', () =>
     .pipe(gulp.dest('.tmp/assets/js'))
 );
 
+gulp.task('scripts1', () =>
+  gulp.src(['app/assets/es/index.js'])
+    .pipe($.plumberNotifier())
+    .pipe($.newer('.tmp/assets/js'))
+    .pipe($.sourcemaps.init())
+    .pipe(webpack({
+      entry: {
+        app: './app/assets/es/index.js'
+      },
+      output: {
+        filename: 'index.js'
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules)/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/assets/js'))
+    .pipe($.concat('index.min.js'))
+    .pipe($.uglify(
+      {
+        output: {
+          comments: false
+        }
+      }
+    ))
+    .pipe($.size({title: 'scripts'}))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('.tmp/assets/js')), 
+);
+
+gulp.task('scripts2', () =>
+  gulp.src(['app/assets/es/blogs.js'])
+    .pipe($.plumberNotifier())
+    .pipe($.newer('.tmp/assets/js'))
+    .pipe($.sourcemaps.init())
+    .pipe(webpack({
+      entry: {
+        app: './app/assets/es/blogs.js'
+      },
+      output: {
+        filename: 'blogs.js'
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules)/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/assets/js'))
+    .pipe($.concat('blogs.min.js'))
+    .pipe($.uglify(
+      {
+        output: {
+          comments: false
+        }
+      }
+    ))
+    .pipe($.size({title: 'scripts'}))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('.tmp/assets/js')), 
+);
+
+gulp.task('scripts3', () =>
+  gulp.src(['app/assets/es/contact.js'])
+    .pipe($.plumberNotifier())
+    .pipe($.newer('.tmp/assets/js'))
+    .pipe($.sourcemaps.init())
+    .pipe(webpack({
+      entry: {
+        app: './app/assets/es/contact.js'
+      },
+      output: {
+        filename: 'contact.js'
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules)/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/assets/js'))
+    .pipe($.concat('contact.min.js'))
+    .pipe($.uglify(
+      {
+        output: {
+          comments: false
+        }
+      }
+    ))
+    .pipe($.size({title: 'scripts'}))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('.tmp/assets/js'))
+);
+
+gulp.task('scripts4', () =>
+  gulp.src(['app/assets/es/detailArtwork.js'])
+    .pipe($.plumberNotifier())
+    .pipe($.newer('.tmp/assets/js'))
+    .pipe($.sourcemaps.init())
+    .pipe(webpack({
+      entry: {
+        app: './app/assets/es/detailArtwork.js'
+      },
+      output: {
+        filename: 'detailArtwork.js'
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules)/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/assets/js'))
+    .pipe($.concat('detailArtwork.min.js'))
+    .pipe($.uglify(
+      {
+        output: {
+          comments: false
+        }
+      }
+    ))
+    .pipe($.size({title: 'scripts'}))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('.tmp/assets/js'))
+);
+
+gulp.task('scripts5', () =>
+  gulp.src(['app/assets/es/detailBlog.js'])
+    .pipe($.plumberNotifier())
+    .pipe($.newer('.tmp/assets/js'))
+    .pipe($.sourcemaps.init())
+    .pipe(webpack({
+      entry: {
+        app: './app/assets/es/detailBlog.js'
+      },
+      output: {
+        filename: 'detailBlog.js'
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules)/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/assets/js'))
+    .pipe($.concat('detailBlog.min.js'))
+    .pipe($.uglify(
+      {
+        output: {
+          comments: false
+        }
+      }
+    ))
+    .pipe($.size({title: 'scripts'}))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('.tmp/assets/js'))
+);
+
+gulp.task('scripts6', () =>
+  gulp.src(['app/assets/es/artworks.js'])
+    .pipe($.plumberNotifier())
+    .pipe($.newer('.tmp/assets/js'))
+    .pipe($.sourcemaps.init())
+    .pipe(webpack({
+      entry: {
+        app: './app/assets/es/artworks.js'
+      },
+      output: {
+        filename: 'artworks.js'
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules)/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/assets/js'))
+    .pipe($.concat('artworks.min.js'))
+    .pipe($.uglify(
+      {
+        output: {
+          comments: false
+        }
+      }
+    ))
+    .pipe($.size({title: 'scripts'}))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('.tmp/assets/js'))
+);
+
+gulp.task('scripts7', () =>
+  gulp.src(['app/assets/es/profileStudent.js'])
+    .pipe($.plumberNotifier())
+    .pipe($.newer('.tmp/assets/js'))
+    .pipe($.sourcemaps.init())
+    .pipe(webpack({
+      entry: {
+        app: './app/assets/es/profileStudent.js'
+      },
+      output: {
+        filename: 'profileStudent.js'
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules)/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/assets/js'))
+    .pipe($.concat('profileStudent.min.js'))
+    .pipe($.uglify(
+      {
+        output: {
+          comments: false
+        }
+      }
+    ))
+    .pipe($.size({title: 'scripts'}))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('.tmp/assets/js'))
+);
 /*
  ES & JS Lint
  =====================================================================================
@@ -378,7 +643,8 @@ gulp.task('default', ['clean'], cb =>
     'sass:docs',
     'handlebars:compile',
     'html',
-    ['styles', 'scripts', 'images', 'fonts', 'copy'],
+    ['styles', 'scripts', 'scripts1', 'scripts2', 'scripts3', 'scripts4', 'scripts5', 'scripts6', 'scripts7', 'images', 'fonts', 'copy'],
     cb
+    //  'scripts8', 'scripts9'
   )
 );

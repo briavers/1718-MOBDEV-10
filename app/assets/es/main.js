@@ -54,9 +54,37 @@ menubutton.addEventListener('click', function myMasterMenuShow () {
   }
 });
 
-let logOutBtnElement = document.querySelector('#logOutBtn');
-logOutBtnElement.addEventListener('click', function logout () {
-  global.sessionStorage.clear();
-  console.log('session removed');
-  window.location.href = './index.html';
-});
+let tempStrLogin = `
+      <div class="logo">
+      <a href="./register.html">
+          <img src="https://image.ibb.co/d7DfsG/profile_Icon.png" alt="login / register icon">
+      </a> </div>`;
+
+let tempStrLogout =
+  `<div class="logo" id="logOutBtn">       
+          <img src="https://image.ibb.co/b99LsG/login_Icon.png" alt="logout icon">
+        </div>`;
+
+let elementLoginLogoutRegisterBtn = document.getElementById('loginLogoutRegisterBtn');
+console.log('elementLoginLogoutRegisterBtn', elementLoginLogoutRegisterBtn);
+let logedIn = global.sessionStorage.getItem('logged-In');
+
+if (logedIn) {
+  elementLoginLogoutRegisterBtn.innerHTML = tempStrLogout;
+  console.log('element btn ', elementLoginLogoutRegisterBtn);
+  let logOutBtnElement = document.getElementById('logOutBtn');
+  logOutBtnElement.addEventListener('click', function logout () {
+    global.sessionStorage.clear();
+    console.log('session removed');
+    window.location.href = './index.html';
+  });
+} else {
+  elementLoginLogoutRegisterBtn.innerHTML = tempStrLogin;
+}
+
+if (global.localStorage.getItem('localStorageObject') === null) {
+  let tempdata = [];
+  tempdata = ['test'];
+  let data = JSON.stringify(tempdata);
+  global.localStorage.setItem('localStorageObject', data);
+}
