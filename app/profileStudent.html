@@ -173,13 +173,17 @@
   </div>
 
 
-  <div class="fb-grid__row" id="child">
+  <div class="fb-grid__row">
     <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
-    <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
-      <h6>more of this student</h6>
+    <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6" id="parent">
+      <h6 id="child">more of this student</h6>
     </div>
-    <div class="fb-grid__col-xs-2 fb-grid__col-sm-2 fb-grid__col-md-2 fb-grid__col-lg-2 fb-grid__col-xl-2 fb-grid__col-2"> </div>
-    <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3"> </div>
+    
+    <div class="fb-grid__col-xs-4 fb-grid__col-sm-4 fb-grid__col-md-4 fb-grid__col-lg-4 fb-grid__col-xl-4 fb-grid__col-4"> 
+
+      <span class="tag tagArticle" id="followBtn">Follow</span>
+    </div>
+    <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"> </div>
   </div>
 
   <div id="otherWorks">
@@ -259,21 +263,22 @@
     xhr.send(null);
   }
 
-  getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
+  getJsonByCallbacks('https://api.myjson.com/bins/1cqddv',
     function (data) {
       let projectsData = data.projects;
-      console.log(projectsData);
+      console.log("project data ", projectsData);
       
-      console.log(projectID);
+      console.log("project id ", projectID);
       
       let student = projectID.replace(/%20/g, " ");
-      console.log(student);
+      console.log("Student ", student);
       
       let allWorksByStudent = [];
 
       projectsData.forEach(function (projectsData) {
         if (projectsData.artist === student) {
-          allWorksByStudent.push(projectsData)
+          console.log('found a match');
+          allWorksByStudent.push(projectsData);
         }
       });
 
@@ -316,7 +321,7 @@
 
       console.log(allWorksByStudent.length)
       if (allWorksByStudent.length === 1) {
-        let parent = document.getElementById('page');
+        let parent = document.getElementById('parent');
         let child = document.getElementById('child');
         parent.removeChild(child);
       }
@@ -329,7 +334,7 @@
     
   );
 
-  
+  followBtnElement = document.getElementById('followBtn')
   
   
 

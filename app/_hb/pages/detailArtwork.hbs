@@ -4,7 +4,7 @@
 
 }} {{#*inline "content-block"}}
 
-<div id="page parent">
+<div id="page">
   <div id="artwork">
 
   </div>
@@ -13,7 +13,9 @@
   <div class="fb-grid__row" id="child">
     <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
     <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
-      <h6>more like this</h6>
+      <div id="parentArtwork">
+      <h6 id="childArtwork">more like this</h6>
+    </div>
     </div>
     <div class="fb-grid__col-xs-2 fb-grid__col-sm-2 fb-grid__col-md-2 fb-grid__col-lg-2 fb-grid__col-xl-2 fb-grid__col-2"> </div>
     <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3"> </div>
@@ -103,14 +105,6 @@
           }
         });
 
-        if (moreLikeThis.length === 0 ){
-          let parent = document.getElementById('parent');
-          let child = document.getElementById('child');
-          parent.removeChild(child);
-        } else {
-          console.log("there are childeren")
-        }
-      console.log(moreLikeThis);
       
       function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -121,7 +115,12 @@
       
       shuffleArray(moreLikeThis);
       
-      let amounthToSplice = (moreLikeThis.length - 5)
+      
+    
+      let amounthToSplice = (moreLikeThis.length - 4);
+      if (amounthToSplice < 4 ){
+        amounthToSplice = 0
+      }
 
       moreLikeThis.splice(4, amounthToSplice);
       console.log(moreLikeThis);
@@ -141,26 +140,14 @@
 
       //de html in het element veranderen naar de inhoud van tempstr
       blogElement.innerHTML = tempStr2;
-      //The forEach() method executes a provided function once for each array element.
-  /*    for (i = 0; i < 3; ++i) {
-        //projectsData.forEach(function(uitvoer) {
-        //de tempstr aanvullen met de ingeladen informatie
-        tempStr2 +=
-           `<div class="fb-grid__row margin-top blogSum">
-              <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
-                <img src="${blogData[i].image}" alt="logo Portfolio rex" class="radius5"> </div>
-                <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
-                <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
-                <h5 class="articleName">${blogData[i].articleName}</h5>
-                <span class="date"> ${blogData[i].date}<br> </span>
-                <span class="tag tagArticle">Article</span>
-              </div>
-            </div>`;
-      };
 
-      //de html in het element veranderen naar de inhoud van tempstr
-      blogElement.innerHTML = tempStr2;
-*/
+      if (moreLikeThis.length === 0 ){
+        let parent2 = document.querySelector('#parentArtwork');
+        console.log (parent2);
+        let child2 = document.querySelector('#childArtwork');
+        console.log (child2);
+        parent2.removeChild(child2);
+        }
     },
     function (status) {
       console.log(status);
