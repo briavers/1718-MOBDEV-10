@@ -1,25 +1,27 @@
 console.log('json is called in');
 
-function getJsonByCallbacks (url, succesHandler, errorHandler) {
-  var xhr = new XMLHttpRequest();
-  xhr.responseType = 'json';
-  xhr.open('GET', url, true);
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      var data = (!xhr.responseType) ? JSON.parse(response) : xhr.response;
-      succesHandler && succesHandler(data);
-    } else {
-      errorHandler && errorHandler(`Error ${xhr.status}`);
-    }
-  };
-  xhr.onerror = function () {
-    errorHandler && errorHandler('network error');
-  };
-  xhr.send(null);
+class getJsonByCallbacks {
+  static getJson (url, succesHandler, errorHandler) {
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.open('GET', url, true);
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const data = (!xhr.responseType) ? JSON.parse(xhr.response) : xhr.response;
+        succesHandler && succesHandler(data);
+      } else {
+        errorHandler && errorHandler(`Error ${xhr.status}`);
+      }
+    };
+    xhr.onerror = () => {
+      errorHandler && errorHandler('network error');
+    };
+    xhr.send(null);
+  }
 }
 
-getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
-  function (data) {
+getJsonByCallbacks.getJson('https://api.myjson.com/bins/jftnf',
+  (data) => {
     let blogData = data.articles;
     let tempStr = '';
     for (let i = 0; i < 3; ++i) {
@@ -44,7 +46,7 @@ getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
     };
     let tempStr2 = '';
     let allPostsElement = document.querySelector('#allBlogPosts');
-    blogData.forEach(function (blogData) {
+    blogData.forEach((blogData) => {
       tempStr2 +=
           `<a href="./detailBlog.html?project=${blogData.articleId}"> <div class="fb-grid__row margin-top blogSum">
               <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
@@ -61,7 +63,7 @@ getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
       allPostsElement.innerHTML = tempStr2;
     };
   },
-  function (status) {
+  (status) => {
     console.log(status);
   }
 );

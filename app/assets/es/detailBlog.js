@@ -1,37 +1,48 @@
 console.log('json is called in');
 
-function getUrlVars () {
-  var vars = {};
-  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+class getUrlVars {
+  static vars () {
+    let vars = {};
+    let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+      vars[key] = value;
+    });
+    return vars;
+  }
+}
+/* function getUrlVars () {
+  let vars = {};
+  let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
     vars[key] = value;
   });
   return vars;
+} */
+
+class getJsonByCallbacks {
+  static getJson (url, succesHandler, errorHandler) {
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.open('GET', url, true);
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const data = (!xhr.responseType) ? JSON.parse(xhr.response) : xhr.response;
+        succesHandler && succesHandler(data);
+      } else {
+        errorHandler && errorHandler(`Error ${xhr.status}`);
+      }
+    };
+    xhr.onerror = () => {
+      errorHandler && errorHandler('network error');
+    };
+    xhr.send(null);
+  }
 }
 
-function getJsonByCallbacks (url, succesHandler, errorHandler) {
-  var xhr = new XMLHttpRequest();
-  xhr.responseType = 'json';
-  xhr.open('GET', url, true);
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      var data = (!xhr.responseType) ? JSON.parse(response) : xhr.response;
-      succesHandler && succesHandler(data);
-    } else {
-      errorHandler && errorHandler(`Error ${xhr.status}`);
-    }
-  };
-  xhr.onerror = function () {
-    errorHandler && errorHandler('network error');
-  };
-  xhr.send(null);
-}
-
-getJsonByCallbacks('https://api.myjson.com/bins/1cqddv',
-  function (data) {
+getJsonByCallbacks.getJson('https://api.myjson.com/bins/1cqddv',
+  (data) => {
     let blogData = data.articles;
 
     console.log(blogData);
-    let blogID = (getUrlVars()['project'] - 1);
+    let blogID = (getUrlVars.vars()['project'] - 1);
     console.log(blogID);
     let tempStr = '';
     let blogInfo = blogData[blogID];
@@ -57,7 +68,7 @@ getJsonByCallbacks('https://api.myjson.com/bins/1cqddv',
       blogElement.innerHTML = tempStr;
     };
   },
-  function (status) {
+  (status) => {
     console.log(status);
   }
 );

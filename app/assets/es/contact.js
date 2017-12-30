@@ -18,7 +18,7 @@ console.log(formSubmitted);
 
 const btnSubmit = document.getElementById('submit');
 if (btnSubmit !== undefined && btnSubmit !== null) {
-  btnSubmit.onclick = function (event) {
+  btnSubmit.onclick = (event) => {
     event.preventDefault();
     tempstrAlert = '';
 

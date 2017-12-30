@@ -1,25 +1,27 @@
 console.log('json is called in');
 
-function getJsonByCallbacks (url, succesHandler, errorHandler) {
-  var xhr = new XMLHttpRequest();
-  xhr.responseType = 'json';
-  xhr.open('GET', url, true);
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      var data = (!xhr.responseType) ? JSON.parse(response) : xhr.response;
-      succesHandler && succesHandler(data);
-    } else {
-      errorHandler && errorHandler(`Error ${xhr.status}`);
-    }
-  };
-  xhr.onerror = function () {
-    errorHandler && errorHandler('network error');
-  };
-  xhr.send(null);
+class getJsonByCallbacks {
+  static getJson (url, succesHandler, errorHandler) {
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.open('GET', url, true);
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const data = (!xhr.responseType) ? JSON.parse(xhr.response) : xhr.response;
+        succesHandler && succesHandler(data);
+      } else {
+        errorHandler && errorHandler(`Error ${xhr.status}`);
+      }
+    };
+    xhr.onerror = () => {
+      errorHandler && errorHandler('network error');
+    };
+    xhr.send(null);
+  }
 }
 
-getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
-  function (data) {
+getJsonByCallbacks.getJson('https://api.myjson.com/bins/jftnf',
+  (data) => {
     console.log(data);
     let usersData = data.users;
     console.log(usersData);
@@ -30,7 +32,7 @@ getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
     let projectsElement = document.querySelector('#artworks');
 
     // lege string aan maken
-    var tempStr = '';
+    let tempStr = '';
     // The forEach() method executes a provided function once for each array element.
     for (let i = 0; i < 5; ++i) {
       // projectsData.forEach(function(uitvoer) {
@@ -58,7 +60,7 @@ getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
     };
     let blogElement = document.querySelector('#blog');
     // lege string aan maken
-    var tempStr2 = '';
+    let tempStr2 = '';
     console.log(blogData.image);
     // The forEach() method executes a provided function once for each array element.
     for (let i = 0; i < 3; ++i) {
@@ -82,7 +84,7 @@ getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
       blogElement.innerHTML = tempStr2;
     };
   },
-  function (status) {
+  (status) => {
     console.log(status);
   }
 );

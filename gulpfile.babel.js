@@ -50,7 +50,7 @@ gulp.task('html', () => {
       removeStyleLinkTypeAttributes: true,
       removeOptionalTags: true
     })))
-    .pipe($.if('*.html', $.size({title: 'html', showFiles: true})))
+    .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))
     .pipe(gulp.dest('dist'));
 });
 
@@ -83,7 +83,7 @@ gulp.task('html:lint', () =>
     .pipe($.htmllint({}, htmllintReporter))
 );
 
-function htmllintReporter (filepath, issues) {
+function htmllintReporter(filepath, issues) {
   if (issues.length > 0) {
     issues.forEach(function (issue) {
       $.gutil.log($.gutil.colors.cyan('[gulp-htmllint] ') + $.gutil.colors.white(filepath + ' [' + issue.line + ',' + issue.column + ']: ') + $.gutil.colors.red('(' + issue.code + ') ' + issue.msg));
@@ -100,7 +100,7 @@ function htmllintReporter (filepath, issues) {
 */
 gulp.task('styles', () => {
   const AUTOPREFIXER_BROWSERS = [
-    'ie >= 10', 
+    'ie >= 10',
     'ie_mob >= 10',
     'ff >= 30',
     'chrome >= 34',
@@ -126,7 +126,7 @@ gulp.task('styles', () => {
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest('.tmp/assets/css'))
     .pipe($.if('*.css', $.cssnano()))
-    .pipe($.size({title: 'styles'}))
+    .pipe($.size({ title: 'styles' }))
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest('dist/assets/css'))
     .pipe(gulp.dest('.tmp/assets/css'));
@@ -213,7 +213,7 @@ gulp.task('scripts', () =>
         }
       }
     ))
-    .pipe($.size({title: 'scripts'}))
+    .pipe($.size({ title: 'scripts' }))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(gulp.dest('.tmp/assets/js'))
@@ -251,10 +251,10 @@ gulp.task('scripts1', () =>
         }
       }
     ))
-    .pipe($.size({title: 'scripts'}))
+    .pipe($.size({ title: 'scripts' }))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/assets/js'))
-    .pipe(gulp.dest('.tmp/assets/js')), 
+    .pipe(gulp.dest('.tmp/assets/js')),
 );
 
 gulp.task('scripts2', () =>
@@ -289,10 +289,10 @@ gulp.task('scripts2', () =>
         }
       }
     ))
-    .pipe($.size({title: 'scripts'}))
+    .pipe($.size({ title: 'scripts' }))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/assets/js'))
-    .pipe(gulp.dest('.tmp/assets/js')), 
+    .pipe(gulp.dest('.tmp/assets/js')),
 );
 
 gulp.task('scripts3', () =>
@@ -327,7 +327,7 @@ gulp.task('scripts3', () =>
         }
       }
     ))
-    .pipe($.size({title: 'scripts'}))
+    .pipe($.size({ title: 'scripts' }))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(gulp.dest('.tmp/assets/js'))
@@ -365,7 +365,7 @@ gulp.task('scripts4', () =>
         }
       }
     ))
-    .pipe($.size({title: 'scripts'}))
+    .pipe($.size({ title: 'scripts' }))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(gulp.dest('.tmp/assets/js'))
@@ -403,7 +403,7 @@ gulp.task('scripts5', () =>
         }
       }
     ))
-    .pipe($.size({title: 'scripts'}))
+    .pipe($.size({ title: 'scripts' }))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(gulp.dest('.tmp/assets/js'))
@@ -441,7 +441,7 @@ gulp.task('scripts6', () =>
         }
       }
     ))
-    .pipe($.size({title: 'scripts'}))
+    .pipe($.size({ title: 'scripts' }))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(gulp.dest('.tmp/assets/js'))
@@ -479,11 +479,49 @@ gulp.task('scripts7', () =>
         }
       }
     ))
-    .pipe($.size({title: 'scripts'}))
+    .pipe($.size({ title: 'scripts' }))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(gulp.dest('.tmp/assets/js'))
 );
+
+/* gulp.task('scripts8', () =>
+  gulp.src(['app/assets/es/register.js'])
+    .pipe($.plumberNotifier())
+    .pipe($.newer('.tmp/assets/js'))
+    .pipe($.sourcemaps.init())
+    .pipe(webpack({
+      entry: {
+        app: './app/assets/es/register.js'
+      },
+      output: {
+        filename: 'register.js'
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules)/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/assets/js'))
+    .pipe($.concat('register.min.js'))
+    .pipe($.uglify(
+      {
+        output: {
+          comments: false
+        }
+      }
+    ))
+    .pipe($.size({ title: 'scripts' }))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('.tmp/assets/js'))
+); */
 /*
  ES & JS Lint
  =====================================================================================
@@ -510,7 +548,7 @@ gulp.task('images', () =>
       interlaced: true
     })))
     .pipe(gulp.dest('dist/assets/images'))
-    .pipe($.size({title: 'images'}))
+    .pipe($.size({ title: 'images' }))
 );
 
 /*
@@ -536,9 +574,9 @@ gulp.task('clean', () =>
     'dist/*',
     '!dist/.git'
   ],
-  {
-    dot: true
-  })
+    {
+      dot: true
+    })
 );
 
 /*
@@ -552,11 +590,11 @@ gulp.task('copy', () =>
     '!app/_hb',
     '!app/*.html'
   ], {
-    dot: true
-  })
+      dot: true
+    })
     .pipe($.plumberNotifier())
     .pipe(gulp.dest('dist'))
-    .pipe($.size({title: 'copy'}))
+    .pipe($.size({ title: 'copy' }))
 );
 
 /*
@@ -645,6 +683,6 @@ gulp.task('default', ['clean'], cb =>
     'html',
     ['styles', 'scripts', 'scripts1', 'scripts2', 'scripts3', 'scripts4', 'scripts5', 'scripts6', 'scripts7', 'images', 'fonts', 'copy'],
     cb
-    //  'scripts8', 'scripts9'
+    //   'scripts9'
   )
 );
