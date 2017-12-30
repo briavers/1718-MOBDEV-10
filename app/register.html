@@ -279,7 +279,7 @@
   <script>
     var loggedInnQ = sessionStorage.getItem('logged-In');
     if ( loggedInnQ ) {
-      window.location.href = "./profile.html";
+      window.location.href = "./index.html";
     }
 
 
@@ -328,7 +328,7 @@
 
         
 
-          if (emailLoginElement.value === arrayOfUsers.email && passwordLoginElement.value === arrayOfUsers.password) {
+          if (emailLoginElement.value === arrayOfUsers.email && passwordLoginElement.value === arrayOfUsers.password && emailLoginElement.value !== undefined)   {
             console.log('login-Succes');
             console.log('login-Succes');
             console.log('login-Succes');

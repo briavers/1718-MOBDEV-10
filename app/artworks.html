@@ -179,8 +179,8 @@
 
   <div class="fb-grid__row">
     <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
-    <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
-      <h6>Followed Artworks</h6>
+    <div id="parent3" class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
+      <h6 id="child3">Followed Artworks</h6>
     </div>
     <div class="fb-grid__col-xs-2 fb-grid__col-sm-2 fb-grid__col-md-2 fb-grid__col-lg-2 fb-grid__col-xl-2 fb-grid__col-2"> </div>
     <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
@@ -280,31 +280,31 @@
 
       let followedProjects = [];
       let followedPeople = JSON.parse(retrievedObject);
-      console.log(followedPeople)
-   
+     
 
-      for(i=0; i < followedPeople.length; ++i){
-        console.info('inside the for loop')
-        projectsData.forEach(function (projectsData) {
-            if (projectsData.artist === followedPeople[i]) {
-              followedProjects.push(projectsData);
-            } else {
-              console.log('nothing found');
-            }
-          });
-          console.log(followedProjects);
-      }
+    if (followedPeople !== null ){
+      for (i = 0; i < followedPeople.length; ++i) {
+            console.info('inside the for loop')
+            projectsData.forEach(function (projectsData) {
+              if (projectsData.artist === followedPeople[i]) {
+                followedProjects.push(projectsData);
+              } else {
+                console.log('nothing found');
+              }
+            });
+            console.log(followedProjects);
+          }
 
-        let followedWorksElement = document.querySelector('#followedArtworks');
-        let curentPage = window.location.href 
-        //lege string aan maken
-        var tempStr = '';
-        //The forEach() method executes a provided function once for each array element.
-        followedProjects.forEach(function (projectsData) {
-          //projectsData.forEach(function(uitvoer) {
-          //de tempstr aanvullen met de ingeladen informatie
-          tempStr +=
-            `<div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1 scroll"></div>
+          let followedWorksElement = document.querySelector('#followedArtworks');
+          let curentPage = window.location.href
+          //lege string aan maken
+          var tempStr = '';
+          //The forEach() method executes a provided function once for each array element.
+          followedProjects.forEach(function (projectsData) {
+            //projectsData.forEach(function(uitvoer) {
+            //de tempstr aanvullen met de ingeladen informatie
+            tempStr +=
+              `<div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1 scroll"></div>
             <div class="fb-grid__col-xs-8 fb-grid__col-sm-8 fb-grid__col-md-8 fb-grid__col-lg-8 fb-grid__col-xl-8 fb-grid__col-8 scroll">
               <a href="./detailArtwork.html?project=${projectsData.projectId}">
                 <div class="picText">
@@ -317,12 +317,20 @@
                 </div>
               </a>
             </div>`;
-        });
+          });
 
-        //de html in het element veranderen naar de inhoud van tempstr
-        followedWorksElement.innerHTML = tempStr;
+          //de html in het element veranderen naar de inhoud van tempstr
+          followedWorksElement.innerHTML = tempStr;
+      
 
-
+    } else {
+      let parent3 = document.querySelector('#parent3');
+      console.log(parent3);
+      let child3 = document.querySelector('#child3');
+      console.log(child3);
+      parent3.removeChild(child3);
+    }
+      
      // console.log(projectsData);
       let projectovervieuw = document.querySelector('#allArtworks');
 
