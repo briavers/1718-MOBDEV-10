@@ -1,5 +1,4 @@
-
-<!doctype html>
+ <!doctype html>
 <html lang="nl-be" dir="ltr" prefix="og: http://ogp.me/ns#">
   <head>
 	  <meta charset="UTF-8"> 
@@ -168,7 +167,7 @@
 
 
 
-<div id="page parent">
+<div id="page">
   <div id="artwork">
 
   </div>
@@ -177,13 +176,13 @@
   <div class="fb-grid__row" id="child">
     <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
     <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
-      <h6>more like this</h6>
+      <h6>more of this student</h6>
     </div>
     <div class="fb-grid__col-xs-2 fb-grid__col-sm-2 fb-grid__col-md-2 fb-grid__col-lg-2 fb-grid__col-xl-2 fb-grid__col-2"> </div>
     <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3"> </div>
   </div>
 
-  <div id="blog">
+  <div id="otherWorks">
 
   </div>
 
@@ -226,8 +225,8 @@
 
 
 <script>
-  console.log('json is called in');
 
+  
   function getUrlVars() {
       var vars = {};
       var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -235,6 +234,11 @@
       });
       return vars;
     }
+
+  let projectID = getUrlVars()["profile"] ;
+
+
+
 
   function getJsonByCallbacks(url, succesHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
@@ -257,116 +261,83 @@
 
   getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
     function (data) {
-      let blogData = data.articles;
       let projectsData = data.projects;
-     
-      console.log(blogData);
-      let projectID = (getUrlVars()["project"]-1);
+      console.log(projectsData);
+      
       console.log(projectID);
-      let tempStr = '';
-      let projectInfo = projectsData[projectID];
+      
+      let student = projectID.replace(/%20/g, " ");
+      console.log(student);
+      
+      let allWorksByStudent = [];
+
+      projectsData.forEach(function (projectsData) {
+        if (projectsData.artist === student) {
+          allWorksByStudent.push(projectsData)
+        }
+      });
+
+      console.log(allWorksByStudent);
+
       let projectElement = document.querySelector('#artwork');
-      console.log(projectInfo);
-      let tag = projectInfo.tags[0];
-      tempStr += 
-      `
+      let tempStr = '';
+      tempStr +=
+        `
       <div class="fb-grid__row">
         <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
         <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10">
           <div class="picText">
-            <img src="${projectInfo.pictures[0]}" alt="picture of the campus">
-            <h4>  ${projectInfo.projectName}</h4>
-            <h5 class="date"> <a href="./profileStudent.html?profile=${projectInfo.artist}"> ${projectInfo.artist} </a> </h5>
-            <p>${projectInfo.bodyText}</p>
+            <img src="${allWorksByStudent[0].pictures[0]}" alt="picture of the campusfirst work of student">
+            <h4>  ${allWorksByStudent[0].artist} </h4>
+            <h5 class="date"> personal information </h5>
+            <p>${allWorksByStudent[0].bodyText}</p>
           </div>
         </div>
         <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
       </div>`;
-    projectElement.innerHTML = tempStr;
+      projectElement.innerHTML = tempStr;
 
-
-      let blogElement = document.querySelector('#blog');
-      //lege string aan maken
-      var tempStr2 = '';
-     
-     
-     
-      let moreLikeThis = []
-      console.log(projectsData)
-
-        projectsData.forEach(function (projectsData) {
-          if (projectsData.tags[0] === tag && projectsData.projectName !== projectInfo.projectName || projectsData.tags[0] === projectInfo.tags[1] && projectsData.projectName !== projectInfo.projectName || projectsData.tags[1] === projectInfo.tags[0] && projectsData.projectName !== projectInfo.projectName) {
-            moreLikeThis.push(projectsData);
-          } else {
-            console.log('nothing found');
-          }
-        });
-
-        if (moreLikeThis.length === 0 ){
-          let parent = document.getElementById('parent');
-          let child = document.getElementById('child');
-          parent.removeChild(child);
-        } else {
-          console.log("there are childeren")
-        }
-      console.log(moreLikeThis);
-      
-      function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-          let j = Math.floor(Math.random() * (i + 1));
-          [array[i], array[j]] = [array[j], array[i]];
-        }
-      }
-      
-      shuffleArray(moreLikeThis);
-      
-      let amounthToSplice = (moreLikeThis.length - 5)
-
-      moreLikeThis.splice(4, amounthToSplice);
-      console.log(moreLikeThis);
-      moreLikeThis.forEach(function (moreLikeThis) {
-        tempStr2 +=
-          `<a href="./detailArtwork.html?project=${moreLikeThis.projectId}"> <div class="fb-grid__row margin-top blogSum">
+      tempStr2 = '';
+      for (i = 1; i < allWorksByStudent.length; ++i){
+      tempStr2 +=
+        `<a href="./detailArtwork.html?project=${allWorksByStudent[i].projectId}"> <div class="fb-grid__row margin-top blogSum">
               <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
-                <img src="${moreLikeThis.pictures[0]}" alt="logo Portfolio rex" class="radius5"> </div>
+                <img src="${allWorksByStudent[i].pictures[0]}" alt="logo Portfolio rex" class="radius5"> </div>
                 <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
                 <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
-                <h5 class="articleName">${moreLikeThis.projectName}</h5>
-                <span class="date"> ${moreLikeThis.artist}<br> </span>
-                <span class="tag tagArticle"> ${moreLikeThis.tags[0]}</span>
+                <h5 class="articleName">${allWorksByStudent[i].projectName}</h5>
+                <span class="date"> ${allWorksByStudent[i].artist}<br> </span>
+                <span class="tag tagArticle"> ${allWorksByStudent[i].tags[0]}</span>
               </div>
             </div> </a>`;
-      });
+      }
+      let otherWorksElement = document.querySelector('#otherWorks');
+      otherWorksElement.innerHTML = tempStr2;
 
-      //de html in het element veranderen naar de inhoud van tempstr
-      blogElement.innerHTML = tempStr2;
-      //The forEach() method executes a provided function once for each array element.
-  /*    for (i = 0; i < 3; ++i) {
-        //projectsData.forEach(function(uitvoer) {
-        //de tempstr aanvullen met de ingeladen informatie
-        tempStr2 +=
-           `<div class="fb-grid__row margin-top blogSum">
-              <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
-                <img src="${blogData[i].image}" alt="logo Portfolio rex" class="radius5"> </div>
-                <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
-                <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
-                <h5 class="articleName">${blogData[i].articleName}</h5>
-                <span class="date"> ${blogData[i].date}<br> </span>
-                <span class="tag tagArticle">Article</span>
-              </div>
-            </div>`;
-      };
+      console.log(allWorksByStudent.length)
+      if (allWorksByStudent.length === 1) {
+        let parent = document.getElementById('page');
+        let child = document.getElementById('child');
+        parent.removeChild(child);
+      }
 
-      //de html in het element veranderen naar de inhoud van tempstr
-      blogElement.innerHTML = tempStr2;
-*/
     },
     function (status) {
       console.log(status);
     }
-  );
-</script>
 
+    
+  );
+
+  
+  
+  
+
+
+
+
+
+</script> 
 
   </body>
 </html>

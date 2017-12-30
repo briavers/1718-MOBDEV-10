@@ -1,0 +1,139 @@
+{{!-- pages/index.hbs --}} {{#> layouts/base title="Home | New Media Development | Artevelde University College Ghent" pathToRoot="./"
+}} {{#*inline "content-block"}}
+
+<div id="page">
+  <div id="artwork">
+
+  </div>
+
+
+  <div class="fb-grid__row" id="child">
+    <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+    <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
+      <h6>more of this student</h6>
+    </div>
+    <div class="fb-grid__col-xs-2 fb-grid__col-sm-2 fb-grid__col-md-2 fb-grid__col-lg-2 fb-grid__col-xl-2 fb-grid__col-2"> </div>
+    <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3"> </div>
+  </div>
+
+  <div id="otherWorks">
+
+  </div>
+
+</div>
+{{/inline}} {{#*inline "scripts-block"}}
+
+<script>
+
+  
+  function getUrlVars() {
+      var vars = {};
+      var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+      });
+      return vars;
+    }
+
+  let projectID = getUrlVars()["profile"] ;
+
+
+
+
+  function getJsonByCallbacks(url, succesHandler, errorHandler) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.open('GET', url, true);
+    xhr.onload = function () {
+      if (xhr.status == 200) {
+        var data = (!xhr.responseType) ? JSON.parse(response) : xhr.response;
+        succesHandler && succesHandler(data)
+      } else {
+        errorHandler && errorHandler(`Error ${xhr.status}`);
+      }
+    };
+    xhr.onerror = function () {
+
+      errorHandler && errorHandler('network error');
+    };
+    xhr.send(null);
+  }
+
+  getJsonByCallbacks('https://api.myjson.com/bins/jftnf',
+    function (data) {
+      let projectsData = data.projects;
+      console.log(projectsData);
+      
+      console.log(projectID);
+      
+      let student = projectID.replace(/%20/g, " ");
+      console.log(student);
+      
+      let allWorksByStudent = [];
+
+      projectsData.forEach(function (projectsData) {
+        if (projectsData.artist === student) {
+          allWorksByStudent.push(projectsData)
+        }
+      });
+
+      console.log(allWorksByStudent);
+
+      let projectElement = document.querySelector('#artwork');
+      let tempStr = '';
+      tempStr +=
+        `
+      <div class="fb-grid__row">
+        <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+        <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10">
+          <div class="picText">
+            <img src="${allWorksByStudent[0].pictures[0]}" alt="picture of the campusfirst work of student">
+            <h4>  ${allWorksByStudent[0].artist} </h4>
+            <h5 class="date"> personal information </h5>
+            <p>${allWorksByStudent[0].bodyText}</p>
+          </div>
+        </div>
+        <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+      </div>`;
+      projectElement.innerHTML = tempStr;
+
+      tempStr2 = '';
+      for (i = 1; i < allWorksByStudent.length; ++i){
+      tempStr2 +=
+        `<a href="./detailArtwork.html?project=${allWorksByStudent[i].projectId}"> <div class="fb-grid__row margin-top blogSum">
+              <div class="fb-grid__col-xs-3 fb-grid__col-sm-3 fb-grid__col-md-3 fb-grid__col-lg-3 fb-grid__col-xl-3 fb-grid__col-3">
+                <img src="${allWorksByStudent[i].pictures[0]}" alt="logo Portfolio rex" class="radius5"> </div>
+                <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+                <div class="fb-grid__col-xs-6 fb-grid__col-sm-6 fb-grid__col-md-6 fb-grid__col-lg-6 fb-grid__col-xl-6 fb-grid__col-6">
+                <h5 class="articleName">${allWorksByStudent[i].projectName}</h5>
+                <span class="date"> ${allWorksByStudent[i].artist}<br> </span>
+                <span class="tag tagArticle"> ${allWorksByStudent[i].tags[0]}</span>
+              </div>
+            </div> </a>`;
+      }
+      let otherWorksElement = document.querySelector('#otherWorks');
+      otherWorksElement.innerHTML = tempStr2;
+
+      console.log(allWorksByStudent.length)
+      if (allWorksByStudent.length === 1) {
+        let parent = document.getElementById('page');
+        let child = document.getElementById('child');
+        parent.removeChild(child);
+      }
+
+    },
+    function (status) {
+      console.log(status);
+    }
+
+    
+  );
+
+  
+  
+  
+
+
+
+
+
+</script> {{/inline}} {{/layouts/base}}

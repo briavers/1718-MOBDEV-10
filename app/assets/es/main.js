@@ -52,11 +52,11 @@ menubutton.addEventListener('click', function myMasterMenuShow () {
       document.getElementById('menubutton').classList.remove('change');
     }
   }
+});
 
-  let logOutBtnElement = document.querySelector('#logOutBtn');
-  logOutBtnElement.addEventListener('click', function logout () {
-    global.sessionStorage.clear();
-    console.log('session removed');
-    window.location.href = './index.html';
-  });
+let logOutBtnElement = document.querySelector('#logOutBtn');
+logOutBtnElement.addEventListener('click', function logout () {
+  global.sessionStorage.clear();
+  console.log('session removed');
+  window.location.href = './index.html';
 });
