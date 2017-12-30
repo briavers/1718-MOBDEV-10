@@ -88,17 +88,17 @@
     
           <div class="fb-grid__col-xs-2 fb-grid__col-sm-2 fb-grid__col-md-2 fb-grid__col-lg-2 fb-grid__col-xl-2 fb-grid__col-2">
             <div class="logo">
-              <a href="./index">
+              <a href="./register.html">
                 <img src="https://image.ibb.co/d7DfsG/profile_Icon.png" alt="profile icon">
               </a>
             </div>
           </div>
     
           <div class="fb-grid__col-xs-2 fb-grid__col-sm-2 fb-grid__col-md-2 fb-grid__col-lg-2 fb-grid__col-xl-2 fb-grid__col-2">
-            <div class="logo">
-              <a href="./index">
+            <div class="logo" id="logOutBtn">
+             
                 <img src="https://image.ibb.co/b99LsG/login_Icon.png" alt="login icon">
-              </a>
+        
             </div>
           </div>
         </div>
@@ -184,8 +184,8 @@
           <form method="post">
             <div id="alert"></div>
   
-            <input type="email" name="Email" id="emailLogin" placeholder="Email" class="input radius5 margin-top">
-            <input type="password" name="password" id="passwordLogin" placeholder="Password" class="input radius5 margin-top">
+            <input type="email"    name="Email"    id="emailLogin"    placeholder="Email"    class="input radius5 margin-top">
+            <input type="password" name="password" id="loginPassWord" placeholder="Password" class="input radius5 margin-top">
   
             <input class="tag tagArticle submit" type="submit" value="Login" id="login">
           </form>
@@ -270,7 +270,13 @@
 
  
   <script>
-    
+    var loggedInnQ = sessionStorage.getItem('logged-In');
+    if ( loggedInnQ ) {
+      window.location.href = "./profile.html";
+    }
+
+
+
       const nameElement = document.getElementById('Name');
       const emailElement = document.getElementById('Email');
       const passwordElement = document.getElementById('password');
@@ -280,9 +286,7 @@
 
 
       //login 
-      const emailLoginElement = document.getElementById('emailLogin');
-      const passwordLoginElement = document.getElementById('passwordlogin');
-
+      
       console.log(nameElement);
       console.log(emailElement);
       console.log(passwordElement);
@@ -293,7 +297,13 @@
       btnLogin.onclick = function (event) {
         event.preventDefault();
         tempstrAlert = "";
+        let alertElement = document.getElementById('alert')
+      
+        let passwordLoginElement = document.getElementById('loginPassWord');
+        let emailLoginElement = document.getElementById('emailLogin');
 
+        console.log("emailLoginElement: ", emailLoginElement)
+        console.log("passwordLoginElement: ", passwordLoginElement)
 
         // Retrieve the object from storage
         var retrievedObject = localStorage.getItem('Users');
@@ -301,67 +311,55 @@
         console.log('retrievedObject: ', JSON.parse(retrievedObject));
 
         console.log('searching for the object now')
+        let arrayOfUsers = [];
+        arrayOfUsers = JSON.parse(retrievedObject);
 
 
-        console.log(retrievedObject)
-
-
-
-
-
-
-        //console.log(emailElement);
+        arrayOfUsers.forEach(function(arrayOfUsers){
         email = emailElement.value;
-        console.log(email);
-        if (email == "") {
-          tempstrAlert += "<p>Fill in your email.</p><br>";
-        }
-
-        //console.log(passwordElement);
         password = passwordElement.value;
-        console.log(password);
-        if (password == "") {
-          tempstrAlert += "<p>Fill in your chosen password.</p>";
-        }
 
-        alertElement.innerHTML = tempstrAlert;
-        if (email && password) {
+        
 
-          window.location.href = './index.html';
+          if (emailLoginElement.value === arrayOfUsers.email && passwordLoginElement.value === arrayOfUsers.password) {
+            console.log('login-Succes');
+            console.log('login-Succes');
+            console.log('login-Succes');
+            sessionStorage.setItem('logged-In', arrayOfUsers.email);
+            window.location.href = "./index.html";
+          } else {
+            formElement.innerHTML = "";
+            let tempstr = `
+            <div class="fb-grid__row">
+              <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+              <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10 picText">
+                <h6>Login failed</h6>
+                <p>Please try again.</p>
 
+              </div>
+            </div>
+            <!--login-->
+            <div id="form">
+              <div class="fb-grid__row">
+                <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+                <div class="fb-grid__col-xs-8 fb-grid__col-sm-8 fb-grid__col-md-8 fb-grid__col-lg-8 fb-grid__col-xl-8 fb-grid__col-8">
+                  <form method="post">
+                    <div id="alert"></div>
 
-        }
-        else {
+                    <input type="email" name="Email" id="emailLogin" placeholder="Email" class="input radius5 margin-top">
+                    <input type="password" name="password" id="loginPassWord" placeholder="Password" class="input radius5 margin-top">
 
-          formElement.innerHTML = "";
-          let tempstr = `<div class="fb-grid__row">
-      <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
-      <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10 picText">
-          <h6>Login failed</h6>
-          <p>Please try again.</p>
-          
-      </div>
-      </div>
-      <!--login-->
-<div id="form">
-    <div class="fb-grid__row">
-      <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
-      <div class="fb-grid__col-xs-8 fb-grid__col-sm-8 fb-grid__col-md-8 fb-grid__col-lg-8 fb-grid__col-xl-8 fb-grid__col-8">   
-        <form  method="post">
-            <div id="alert"></div>
-       
-          <input type="email" name="Email" id="emailLogin" placeholder="Email" class="input radius5 margin-top">
-          <input type="password" name="password" id="passwordLogin" placeholder="Password" class="input radius5 margin-top">
-          
-          <input class="tag tagArticle submit" type="submit" value="Login" id="login">
-        </form>
-      </div>
-      </div>
-    
-    </div>`
-          formElement.innerHTML += tempstr;
-        }
-      };
+                    <input class="tag tagArticle submit" type="submit" value="Login" id="login">
+                  </form>
+                </div>
+              </div>
+
+            </div>`
+            formElement.innerHTML += tempstr;
+            
+            }
+          });
+      }
 
 
 
@@ -422,18 +420,12 @@
           arrayOfUsers = JSON.parse(retrievedObject);
           console.log('searching for the object now');
           console.log(arrayOfUsers);
-
           if (retrievedObject === null){
             
             localStorageUsers =
               
               [
-                {
-                  'naam': 'test',
-                  'email': 'email',
-                  'password': 'passwordConfirm',
-                  'function': 'testing'
-                },
+                
                 {
                   'naam': name,
                   'email': email,
@@ -445,9 +437,45 @@
             
             localStorage.setItem('Users', JSON.stringify(localStorageUsers));
           } else {
+            let accountExcists = false;
+            arrayOfUsers.forEach(function (arrayOfUsers) {
+              if  (arrayOfUsers.email = email){
+                accountExcists = true;
+              }
+            });
 
+            if (accountExcists) {
+              console.log('account already excists');
+              let tempstr = `
+            <div class="fb-grid__row">
+              <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+              <div class="fb-grid__col-xs-10 fb-grid__col-sm-10 fb-grid__col-md-10 fb-grid__col-lg-10 fb-grid__col-xl-10 fb-grid__col-10 picText">
+                <h6>Email Already Excists</h6>
+                <p>Please login with the correct credentials.</p>
 
+              </div>
+            </div>
+            <!--login-->
+            <div id="form">
+              <div class="fb-grid__row">
+                <div class="fb-grid__col-xs-1 fb-grid__col-sm-1 fb-grid__col-md-1 fb-grid__col-lg-1 fb-grid__col-xl-1 fb-grid__col-1"></div>
+                <div class="fb-grid__col-xs-8 fb-grid__col-sm-8 fb-grid__col-md-8 fb-grid__col-lg-8 fb-grid__col-xl-8 fb-grid__col-8">
+                  <form method="post">
+                    <div id="alert"></div>
 
+                    <input type="email" name="Email" id="emailLogin" placeholder="Email" class="input radius5 margin-top">
+                    <input type="password" name="password" id="passwordLogin" placeholder="Password" class="input radius5 margin-top">
+
+                    <input class="tag tagArticle submit" type="submit" value="Login" id="login">
+                  </form>
+                </div>
+              </div>
+
+            </div>`
+              tempstrAlert += "<p>The email has been used before please login with the correct credentials</p>";
+              formElement.innerHTML += tempstr;
+              alertElement.innerHTML = tempstrAlert;
+            } else{
 
 
 
@@ -469,7 +497,7 @@
             arrayOfUsers.push(addStorage);
             console.log(arrayOfUsers);
             localStorage.setItem('Users', JSON.stringify(arrayOfUsers));
-          }
+          
           retrievedObject = localStorage.getItem('Users');
 
 
@@ -493,7 +521,8 @@
       
           formElement.innerHTML += tempstr;
           console.log(formElement.innerHTML);
-          
+          }
+          }
         }
       };
   </script>
